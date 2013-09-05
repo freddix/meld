@@ -1,11 +1,11 @@
 Summary:	Visual diff and merge tool
 Name:		meld
-Version:	1.7.4
+Version:	1.7.5
 Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.7/%{name}-%{version}.tar.xz
-# Source0-md5:	605e92c5c72d97fa43bf2a8aa6fd5502
+# Source0-md5:	a04644548b917d1a516b223c399649c3
 URL:		http://meld.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildArch:	noarch
@@ -28,7 +28,7 @@ open many diffs at once.
 %prep
 %setup -q
 
-sed -i -e 's|.py|.pyc|g' meld/vc/__init__.py
+%{__sed} -i 's|.py|.pyc|g' meld/vc/__init__.py
 
 # broken
 rm po/{hu,ja,ru}.po
