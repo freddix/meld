@@ -1,11 +1,11 @@
 Summary:	Visual diff and merge tool
 Name:		meld
-Version:	1.8.0
+Version:	1.8.1
 Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	d9ef53d51b1622074d01182cc47f8ccb
+# Source0-md5:	1dd1fd86522551ccb19ebe5d68906413
 URL:		http://meld.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildArch:	noarch
