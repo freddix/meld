@@ -1,11 +1,11 @@
 Summary:	Visual diff and merge tool
 Name:		meld
-Version:	1.8.3
-Release:	1
+Version:	1.8.4
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	8254815c9358283e5e6a9d90f6846746
+# Source0-md5:	d9e5038487ae0b8694191370fcc87fb8
 URL:		http://meld.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildArch:	noarch
@@ -35,16 +35,16 @@ rm po/{hu,ja,ru}.po
 
 %build
 %{__make} \
-	prefix=/usr	\
-	libdir_=%{py_sitedir}
+	prefix=/usr \
+	libdir_=%{py_scriptdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
+	DESTDIR=$RPM_BUILD_ROOT	\
 	prefix=%{_prefix}	\
-	libdir_=%{py_sitedir}
+	libdir_=%{py_scriptdir}
 
 %py_postclean
 
@@ -67,7 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc NEWS
 %attr(755,root,root) %{_bindir}/meld
-%{py_sitedir}/meld
+%{py_scriptdir}/meld
 %{_datadir}/meld
 %{_datadir}/mime/packages/meld.xml
 %{_desktopdir}/meld.desktop
