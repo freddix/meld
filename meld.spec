@@ -1,20 +1,23 @@
 Summary:	Visual diff and merge tool
 Name:		meld
-Version:	1.8.4
-Release:	2
+Version:	3.11.0
+Release:	1
 License:	GPL
 Group:		Applications/Text
-Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	d9e5038487ae0b8694191370fcc87fb8
-URL:		http://meld.sourceforge.net/
+Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/3.11/%{name}-%{version}.tar.xz
+# Source0-md5:	795fb159d0842c6ff237856b98ad7642
+URL:		https://wiki.gnome.org/Apps/Meld
 BuildRequires:	gettext-devel
+BuildRequires:	itstool
+BuildRequires:	libxml2-progs
 BuildArch:	noarch
 Requires(post,postun):	/usr/bin/gtk-update-icon-cache
+Requires(post,postun):	glib-gio-gsettings
 Requires(post,postun):	hicolor-icon-theme
-Requires(post,postun):	rarian
 Requires(post,postun):	shared-mime-info
-%pyrequires_eq	python-libs
-Requires:	python-pygtk
+Requires:	gsettings-desktop-schemas
+Requires:	gtksourceview3
+Requires:	python-pygobject3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -33,43 +36,38 @@ open many diffs at once.
 # broken
 rm po/{hu,ja,ru}.po
 
-%build
-%{__make} \
-	prefix=/usr \
-	libdir_=%{py_scriptdir}
-
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT	\
-	prefix=%{_prefix}	\
-	libdir_=%{py_scriptdir}
+%{__python} setup.py install	\
+	--optimize=2		\
+	--root=$RPM_BUILD_ROOT
 
-%py_postclean
-
-%find_lang %{name} --with-gnome --with-omf
+%find_lang %{name} --with-gnome
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%scrollkeeper_update_post
 %update_icon_cache hicolor
 %update_mime_database
+%update_gsettings_cache
 
 %postun
-%scrollkeeper_update_postun
 %update_icon_cache hicolor
 %update_mime_database
+%update_gsettings_cache
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc NEWS
 %attr(755,root,root) %{_bindir}/meld
-%{py_scriptdir}/meld
+%{py_sitescriptdir}/meld
 %{_datadir}/meld
+%{_datadir}/glib-2.0/schemas/org.gnome.meld.gschema.xml
 %{_datadir}/mime/packages/meld.xml
 %{_desktopdir}/meld.desktop
+%{_iconsdir}/hicolor/*/actions/*.*
 %{_iconsdir}/hicolor/*/apps/*.*
+%{_mandir}/man1/meld.1*
 
