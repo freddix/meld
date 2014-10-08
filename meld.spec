@@ -1,11 +1,11 @@
 Summary:	Visual diff and merge tool
 Name:		meld
-Version:	3.11.0
+Version:	3.12.0
 Release:	1
 License:	GPL
 Group:		Applications/Text
-Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/3.11/%{name}-%{version}.tar.xz
-# Source0-md5:	795fb159d0842c6ff237856b98ad7642
+Source0:	http://ftp.gnome.org/pub/gnome/sources/meld/3.12/%{name}-%{version}.tar.xz
+# Source0-md5:	9dbdb3306dc5d2415baeae3892bcec8e
 URL:		https://wiki.gnome.org/Apps/Meld
 BuildRequires:	gettext-devel
 BuildRequires:	itstool
@@ -36,10 +36,16 @@ open many diffs at once.
 # broken
 rm po/{hu,ja,ru}.po
 
+%build
+%{__python} setup.py build
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__python} setup.py install	\
+%{__python} setup.py \
+	--no-compile-schemas	\
+	--no-update-icon-cache	\
+	install			\
 	--optimize=2		\
 	--root=$RPM_BUILD_ROOT
 
